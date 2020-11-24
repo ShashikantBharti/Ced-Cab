@@ -26,13 +26,11 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 				$user = new User($email, $name, $mobile, $password);
 				$msg = $user -> register($conn);
 			}
-
-
 	} else {
 		echo "OOPs, Something Went wrong!!!";
 	}
 }
-echo isset($_SESSION['USER_ID']);
+echo $_SESSION['USER_ID'];
 
 ?>
 
