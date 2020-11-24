@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+.active {
+	color: #0e2f44;
+}
+.btn {
+	padding: 15px 25px;
+	border: none;
+	outline: none;
+	border-radius: 25px;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.btn-light {
+	background: #f4f4f4;
+	color: #333;
+}
+.btn-dark {
+	background: #333;
+	color: #fff;
+}
+.container {
+	max-width: 80%;
+	margin: auto;
+}
+.text-center{
+	text-align: center;
+}
+.btn-block{
+	width: 100%;
+}
+
+/* Header */
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 50px;
+	margin: 10px 0;
+}
+header .logo img {
+	height: 30px;
+}
+header nav a {
+	display: inline-block;
+	padding: 20px;
+	text-transform: uppercase;
+	transition: color,border-bottom 0.3s ease-in-out;
+	color: #666;
+	font-weight: bold;
+	border-bottom: 2px solid #fff;
+}
+header nav a:hover {
+	color: #0e2f44;
+	transform: translateY(-2px);
+	border-bottom: 2px solid orange;
+}
+
+
+/* Showcase */
+#showcase {
+	background: url('../images/background.jpg');
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 90vh;
+	flex-direction: column;
+	text-align: center;
+	color: #000;
+}
+#showcase p{
+	margin: 50px 0;
+}
+#showcase h1{
+	font-size: 3vw;
+	/* color: orange; */
+}
+
+/* Book Now */
+
+#book-now {
+	padding: 100px 0;
+}
+
+#book-now > div {
+	display: flex;
+}
+
+#book-now .book-now-img {
+	flex: 1;
+}
+#book-now .book-now-img img{
+	width: 100%;
+}
+
+#book-now .book-now-form {
+	flex: 1;
+	margin-left: 30px;
+}
+#book-now .book-now-form label {
+	display: block;
+	margin: 15px 0;
+}
+
+#book-now .book-now-form label span {
+	display: inline-block;
+	width: 100px;
+	text-align: left;
+}
+#book-now .book-now-form label input,
+#book-now .book-now-form label select{
+	padding: 4px;
+	width: 400px;
+	height: 30px;
+}
+#book-now .book-now-form > span{
+	background: orange;
+	padding: 8px 15px;
+	border-radius: 20px;
+}
+#book-now .book-now-form h1 {
+	margin: 20px 0;
+}
+/* About */
+#about {
+	padding: 100px 0;
+	background: #f4f4f4;
+}
+#about > div{
+	display: flex;
+}
+#about>div>div{
+	flex: 1;
+}
+#about img{
+	width: 100%;
+}
+
+#about > div > div > div {
+	border-bottom: 2px solid orange;
+	margin-bottom: 30px;
+	padding-bottom: 10px;
+}
+#about p{
+	font-weight: 300;
+	letter-spacing: 1px;
+	line-height: 22px;
+	margin: 10px 0;
+}
+/* Footer */
+footer {
+	padding: 10px 0;
+	background: #333;
+	color: #fff;
+}
+footer > div {
+	display: flex;
+	justify-content: space-between;
+}
+footer input{
+	width: 100%;
+	font-size: 20px;
+	margin-bottom: 10px;
+	height: 40px;
+	padding:  5px;
+	outline: none;
+	border: none;
+}
+
+footer > div div{
+	padding: 30px;
+}
+
+footer ul {
+	list-style-type: none;
+}
+footer a{
+	color: #fff;
+}
+footer i{
+	font-size: 30px;
+	margin: 5px;
+}
+
+
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {...}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {...}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {...}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {...}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {...}
