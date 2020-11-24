@@ -20,13 +20,21 @@ class User {
 		if($user) {
 			return "User Already Exists!!!";
 		} else {
-			$sql = "INSERT INTO `user`(`username`,`name`,`join_date`,`mobile`,`password`,`status`) VALUES('$this->username','$this->name','$this->join_date','$this->mobile','$this->password',0)";
+			$sql = "INSERT INTO `user`(`username`, `name`, `join_date`, `mobile`, `password`, `token`, `status`) VALUES('$this->username','$this->name','$this->join_date','$this->mobile','$this->password','',0)";
 			if($conn -> query($sql) == TRUE){
 				return "Registration successfull!!!";
 			} else {
 				return "Registration Failed!!!";
 			}
 		}
+	}
+
+	function showData(){
+		echo $this->name;
+		echo $this->username;
+		echo $this->mobile;
+		echo $this->password;
+		echo $this->join_date;
 	}
 
 	function login($conn='',$username='',$password=''){

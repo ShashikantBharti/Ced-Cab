@@ -1,30 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>CedCab</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
-		<!-- Header -->
-		<header id="header">
-			<div class="logo">
-				<img src="images/logo.png" alt="">
-			</div>
-			<nav>
-				<a href="#header" class="active">Home</a>
-				<a href="#about">About Us</a>
-				<!-- <a href="#">Services</a>
-				<a href="#">Our Cabs</a> -->
-				<a href="login.html">Sign In</a>
-				<a href="register.html">Sign Up</a>
-				<a href="#book-now" class="btn btn-dark">Book Now</a>
-			</nav>
-		</header>
-		<!-- //Header -->
-		
+<?php
+	require 'header.inc.php';
+?>
 		<!-- Showcase -->
 		<div id="showcase">
 			<h1>Book a City Taxi to Your Destination in Town</h1>
@@ -92,33 +68,49 @@
 			</div>
 		</div>
 		<!-- //About Us -->
-		<!-- Footer -->
-		<footer>
+		<!-- Our Cabs -->
+		<div id="ourcabs">
+			<h1>Our Cabs</h1>
 			<div class="container">
-				<div>
-					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Our Cabs</a></li>
-						<li><a href="#">Sign In</a></li>
-						<li><a href="#">Sign Up</a></li>
-						<li><a href="#">Book Now</a></li>
-					</ul>
+				<div class="card">
+					<img src="images/taxi1.png" alt="">
+					<h3>CedMicro</h3>
+					<p>Booking Amount - <span>Rs. 50/-</span></p>
+					<p>For 0 to 10KM - <span>Rs. 13.50/km</span></p>
+					<p>For Next 50KM - <span>Rs. 12.00/km</span></p>
+					<p>For Next 100KM - <span>Rs. 10.20/km</span></p>
+					<p>For Rest Above - <span>Rs. 8.50/km</span></p>
 				</div>
-				<div class="text-center">
-					<input type="text" name="subscribe" id="subscribe" placeholder="Enter Your Email">
-					<button class="btn btn-block btn-light">Subscribe Now</button>
-					<!-- <img src="images/logo.png" alt=""> -->
+				<div class="card">
+					<img src="images/taxi2.png" alt="">
+					<h3>CedMini</h3>
+					<p>Booking Amount - <span>Rs. 150/-</span></p>
+					<p>For first 10 KM – <span>Rs. 14.50/km</span></p>
+					<p>For next 50 KM – <span>Rs. 13.00/km</span></p>
+					<p>For next 100 Km – <span>Rs. 11.20/km</span></p>
+					<p>For rest above km – <span>Rs. 9.50/km</span></p>
 				</div>
-				<div class="text-center">
-					<h2>Follow Us On</h2>
-					<a href="#"><i class="fab fa-facebook-square"></i></a>
-					<a href="#"><i class="fab fa-twitter-square"></i></a>
-					<a href="#"><i class="fab fa-instagram-square"></i></a>
+				<div class="card">
+					<img src="images/taxi3.png" alt="">
+					<h3>CedRoyal</h3>
+					<p>Booking Amount - <span>Rs. 200/-</span></p>
+					<p>For first 10 KM – <span>Rs. 15.50/km</span></p>
+					<p>For next 50 KM – <span>Rs. 14.00/km</span></p>
+					<p>For next 100 Km – <span>Rs. 12.20/km</span></p>
+					<p>For rest above km – <span>Rs. 10.50/km</span></p>
+				</div>
+				<div class="card">
+					<img src="images/taxi4.png" alt="">
+					<h3>CedSUV</h3>
+					<p>Booking Amount - <span>Rs. 250/-</span></p>
+					<p>For first 10 KM – <span>Rs. 16.50/km</span></p>
+					<p>For next 50 KM – <span>Rs. 15.00/km</span></p>
+					<p>For next 100 Km – <span>Rs. 13.20/km</span></p>
+					<p>For rest above km – <span>Rs. 11.50/km</span></p>
 				</div>
 			</div>
-		</footer>
-		<!-- //Footer -->
-	</body>
-</html>
+		</div>
+		<!-- //Our Cabs -->
+<?php
+	require 'footer.inc.php';
+?>

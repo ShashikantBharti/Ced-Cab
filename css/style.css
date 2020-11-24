@@ -18,7 +18,7 @@ a {
 	color: #0e2f44;
 }
 .btn {
-	padding: 15px 25px;
+	padding: 10px 25px;
 	border: none;
 	outline: none;
 	border-radius: 25px;
@@ -44,7 +44,9 @@ a {
 .btn-block{
 	width: 100%;
 }
-
+.error {
+	color: red;
+}
 /* Header */
 header {
 	display: flex;
@@ -164,6 +166,35 @@ header nav a:hover {
 	line-height: 22px;
 	margin: 10px 0;
 }
+
+/* our Cabs */
+#ourcabs {
+	padding: 50px 0;
+	text-align: center;
+}
+
+#ourcabs > div {
+	display:  flex;
+	justify-content:  space-between;
+}
+.card {
+	flex: 1;
+	box-shadow: 0 0 10px -4px #333;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 20px;
+}
+.card img{
+	width:  80%;
+}
+.card p{
+	display: flex;
+	justify-content: space-between;
+	text-align: left;
+	font-size: small;
+	margin: 10px 0;
+}
+
 /* Footer */
 footer {
 	padding: 10px 0;
@@ -200,8 +231,33 @@ footer i{
 }
 
 
+/* Login */
+#breadcrumb{
+	padding: 50px 0;
+	background: url('../images/background.jpg');
+}
 
+#input-form{
+	padding: 50px;
+	text-align: center;
+}
+#input-form form label {
+	display:  block;
+	margin: 10px 0;
+}
+#input-form form label span {
+	display: inline-block;
+	width: 100px;
+	text-align:  left;
+}
+#input-form form label input{
+	padding: 4px;
 
+}
+#input-form form p{
+	margin-top: 5px;
+	font-size: small;
+}
 
 
 /* Extra small devices (phones, 600px and down) */
