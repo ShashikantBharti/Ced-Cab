@@ -9,7 +9,7 @@
 		<!-- Login Form -->
 		<div id="input-form">
 			<div id="message"></div>
-			<form action="">
+			<form action="" method="POST">
 				<label for="name">
 					<span>Name</span>
 					<input type="text" name="name" id="name">

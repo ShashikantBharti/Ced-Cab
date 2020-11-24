@@ -2,9 +2,18 @@
 require 'connection.inc.php';
 require 'functions.inc.php';
 $msg = '';
+
 if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 	if($_REQUEST['submit'] == 'Login') {
-		echo 1;
+		$username = $conn -> real_escape_string($_REQUEST['email']);
+		$password = $conn -> real_escape_string($_REQUEST['password']);
+		$user = new User;
+		$msg = $user -> login($conn, $username, $password);
+		if($msg) {
+			header('location: admin/');
+		} else {
+			header('location: /');
+		}
 	} else if($_REQUEST['submit'] == 'Register') {
 			$name = $conn -> real_escape_string($_REQUEST['name']);
 			$email = $conn -> real_escape_string($_REQUEST['email']);
@@ -16,7 +25,6 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 			} else {
 				$user = new User($email, $name, $mobile, $password);
 				$msg = $user -> register($conn);
-				$user -> showData();
 			}
 
 
@@ -24,6 +32,7 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 		echo "OOPs, Something Went wrong!!!";
 	}
 }
+echo isset($_SESSION['USER_ID']);
 
 ?>
 
@@ -45,10 +54,16 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 			<nav>
 				<a href="index.php#header" class="active">Home</a>
 				<a href="index.php#about">About Us</a>
-				<!-- <a href="#">Services</a>
-				<a href="#">Our Cabs</a> -->
-				<a href="login.php">Sign In</a>
-				<a href="register.php">Sign Up</a>
+				<a href="index.php#ourcabs">Our Cabs</a>
+				<?php 
+					if(isset($_SESSION['USER_ID']) && $_SESSION['USER_ID'] != 1) {
+						echo '<a href="login.php">Sign In</a>';
+						echo '<a href="register.php">Sign Up</a>';
+					} else {
+						echo '<a href="logout.php">Logout</a>'; 
+					}
+				?>
+				
 				<a href="#book-now" class="btn btn-dark">Book Now</a>
 			</nav>
 		</header>

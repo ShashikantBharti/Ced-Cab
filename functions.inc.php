@@ -42,18 +42,20 @@ class User {
 		if($user) {
 			$_SESSION['USER_ID'] = $user['id'];
 			if($user['username'] == 'admin') {
-				header('location: admin/');
+				return 1;
 			} else {
-				header('location: ./');
+				return 0;
 			}
 		} else {
 			return "User Name or Password is Incorrect!!!";
 		}
+		echo 1;
 	}
 
-	function getUser($conn='', $username='',$password=''){
+	function getUser($conn='', $username='', $password=''){
 		if($password !== ''){
-			$sql = "SELECT * FROM `user` WHERE `username`='$username' AND `password`='$password'";
+			$password = md5($password);
+			$sql = "SELECT * FROM `user` WHERE `username`='$username' AND `password`='$password' AND `status`=1";
 			$result = $conn -> query($sql) or die("Query Failed");
 			if ($result -> num_rows > 0) {
 				return $result -> fetch_assoc();
@@ -61,7 +63,7 @@ class User {
 				return false;
 			}
 		} else {
-			$sql = "SELECT * FROM `user` WHERE `username`='$username'";
+			$sql = "SELECT * FROM `user` WHERE `username`='$username' AND `status`=1";
 			$result = $conn -> query($sql) or die("Query Failed");
 			if ($result -> num_rows > 0) {
 				return $result -> fetch_assoc();

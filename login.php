@@ -9,10 +9,10 @@
 		<!-- Login Form -->
 		<div id="input-form">
 			<div id="message"></div>
-			<form action="">
+			<form action="" method="POST">
 				<label for="email">
 					<span>Email ID</span>
-					<input type="email" name="email" id="email">
+					<input type="text" name="email" id="email">
 				</label>
 				<label for="password">
 					<span>Password</span>

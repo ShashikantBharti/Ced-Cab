@@ -1,3 +1,12 @@
+<?php 
+session_start();
+
+if(!(isset($_SESSION['USER_ID']) && $_SESSION['USER_ID'] == 1)) {
+	header('location: ../');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +24,7 @@
 		<img src="images/logo.png" alt="">
 	</div>
 	<div class="links">
-		<a href="#" class="links"><i class="fa fa-power-off"></i> Logout</a>
+		<a href="logout.php" class="links"><i class="fa fa-power-off"></i> Logout</a>
 	</div>
 </header>
 <!-- //Header -->
