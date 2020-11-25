@@ -1,36 +1,48 @@
 <?php
-require 'connection.inc.php';
 require 'functions.inc.php';
 $msg = '';
 
 if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 	if($_REQUEST['submit'] == 'Login') {
-		$username = $conn -> real_escape_string($_REQUEST['email']);
-		$password = $conn -> real_escape_string($_REQUEST['password']);
-		$user = new User;
-		$msg = $user -> login($conn, $username, $password);
-		if($msg) {
-			header('location: admin/');
+		$username = $_REQUEST['email'];
+		$password = $_REQUEST['password'];
+		if($username == '' || $password == '') {
+			$msg = "All fields required!";
 		} else {
-			header('location: /');
+			$user = new User;
+			$result = $user -> login($username, $password);
+			if(!$result){
+				$msg = "You are not active user!";
+			}
 		}
+
 	} else if($_REQUEST['submit'] == 'Register') {
-			$name = $conn -> real_escape_string($_REQUEST['name']);
-			$email = $conn -> real_escape_string($_REQUEST['email']);
-			$mobile = $conn -> real_escape_string($_REQUEST['mobile']);
-			$password = $conn -> real_escape_string($_REQUEST['password']);
-			$re_password = $conn -> real_escape_string($_REQUEST['re-password']);
+			$name = $_REQUEST['name'];
+			$email = $_REQUEST['email'];
+			$mobile = $_REQUEST['mobile'];
+			$password = $_REQUEST['password'];
+			$re_password = $_REQUEST['re-password'];
 			if ($password !== $re_password) {
-				$msg = 'Password didn\'t match!!!';
+				$msg = "Password didn't match!!!";
 			} else {
-				$user = new User($email, $name, $mobile, $password);
-				$msg = $user -> register($conn);
+				$query = new Query;
+				if($query->getData('tbl_user','',["user_name"=>$email])) {
+					$msg = "You are already registered!";
+					$register = 0;
+				} else {
+					$user = new User($email, $name, $mobile, $password);
+
+					if($register = $user -> register()) {
+						$msg = "Registration Successfull!!";
+					} else {
+						$msg = "Registration Failed!!";
+					}
+				}
 			}
 	} else {
-		echo "OOPs, Something Went wrong!!!";
+		echo "OOPs, something went wrong!!!";
 	}
 }
-echo $_SESSION['USER_ID'];
 
 ?>
 
@@ -54,11 +66,17 @@ echo $_SESSION['USER_ID'];
 				<a href="index.php#about">About Us</a>
 				<a href="index.php#ourcabs">Our Cabs</a>
 				<?php 
-					if(isset($_SESSION['USER_ID']) && $_SESSION['USER_ID'] != 1) {
+					if(isset($_SESSION['IS_ADMIN'])) {
+						if($_SESSION['IS_ADMIN']) {
+							echo '<a href="login.php">Sign In</a>';
+							echo '<a href="register.php">Sign Up</a>';
+						} else {
+							echo '<a href="logout.php">Logout</a>';
+							echo '<a href="dashboard.php">Dashboard</a>'; 
+						}
+					} else {
 						echo '<a href="login.php">Sign In</a>';
 						echo '<a href="register.php">Sign Up</a>';
-					} else {
-						echo '<a href="logout.php">Logout</a>'; 
 					}
 				?>
 				

@@ -47,6 +47,9 @@ a {
 .error {
 	color: red;
 }
+.success {
+	color: green;
+}
 /* Header */
 header {
 	display: flex;
@@ -68,7 +71,7 @@ header nav a {
 	border-bottom: 2px solid #fff;
 }
 header nav a:hover {
-	color: #0e2f44;
+	color: orange;
 	transform: translateY(-2px);
 	border-bottom: 2px solid orange;
 }

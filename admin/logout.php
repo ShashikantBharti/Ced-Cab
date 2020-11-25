@@ -1,6 +1,6 @@
 <?php
-session_start();
-unset($_SESSION['USER_ID']);
-session_destroy();
+require '../functions.inc.php';
+$user = new User;
+$user -> logout();
 header('location: ../');
 ?>

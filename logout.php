@@ -1,5 +1,7 @@
 <?php
 	session_start();
 	unset($_SESSION['USER_ID']);
-	header('location: ./');
+	unset($_SESSION['IS_ADMIN']);
+	session_destroy();
+	header('location: index.php');
 ?>

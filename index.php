@@ -1,5 +1,9 @@
 <?php
 	require 'header.inc.php';
+	$query = new Query;
+	$locations = $query -> getData('tbl_location');
+
+
 ?>
 		<!-- Showcase -->
 		<div id="showcase">
@@ -18,33 +22,57 @@
 					<span>City Taxi</span>
 					<h1>Your Everyday Travel Partener</h1>
 					<p>AC Cabs for point to point travel</p>
-					<form action="#">
+					<form action="#" method="POST">
 						<label for="pickup">
 							<span>Pickup</span>
 							<select name="pickup" id="pickup">
 								<option value="">Current Location</option>
-								<option value="">Charbagh</option>
+								<?php
+								foreach($locations as $location) {
+									echo '<option value="'.$location['name'].'">'.$location['name'].'</option>';
+								}
+								?>
 							</select>
 						</label>
 						<label for="drop">
 							<span>Drop</span>
 							<select name="drop" id="drop">
-								<option value="">Current Location</option>
-								<option value="">Charbagh</option>
+								<option value="">Drop Location</option>
+								<?php
+								foreach($locations as $location) {
+									echo '<option value="'.$location['name'].'">'.$location['name'].'</option>';
+								}
+								?>
 							</select>
 						</label>
 						<label for="cab_type">
-							<span>Cab type</span>
+							<span>Cab Type</span>
 							<select name="cab_type" id="cab_type">
-								<option value="">Current Location</option>
-								<option value="">Charbagh</option>
+								<option value="">Cab Type</option>
+								<option value="1">CedMicro</option>
+								<option value="2">CedMini</option>
+								<option value="3">CedRoyal</option>
+								<option value="4">CedSUV</option>
 							</select>
 						</label>
-						<label for="luggage">
+						<label for="luggage" class="luggage">
 							<span>Luggage</span>
 							<input type="text" name="luggage" id="luggage" placeholder="Enter Weight in KG">
 						</label>
-						<button class="btn btn-dark btn-block">Book</button>
+
+						<?php 
+							if(isset($_SESSION['IS_ADMIN'])) {
+								if($_SESSION['IS_ADMIN']) {
+									$href = "login.php";
+								} else {
+									$href = "index.php?id=".$_SESSION['USER_ID'];
+								}
+							} else {
+								$href = "login.php";
+							}
+						?>
+
+						<a href="<?php echo $href; ?>" class="btn btn-dark btn-block">Book Now</a>
 					</form>
 				</div>
 			</div>

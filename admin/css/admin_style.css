@@ -37,6 +37,18 @@ a {
 .delete {
 	color: tomato;
 }
+.text-center{
+	text-align: center;
+}
+.active_link {
+	background: #d0f0c0;
+}
+.error {
+	color: tomato;
+}
+.success {
+	color: green;
+}
 /* Header */
 header {
 	display: flex;
@@ -70,24 +82,35 @@ aside {
 	box-shadow: 10px 0 10px -10px #888;
 	padding: 50px;
 	height: 100vh;
+	padding-bottom: 150px;
 	overflow-y: auto;
 }
 .main_content{
 	background: #f4f4f4;
 	padding: 30px;
-	height: 100vh;
-	overflow-y: scroll;
+	
+	/* overflow-y: scroll; */
 }
 .main_header {
+	display: flex;
+	justify-content: space-between;
 	padding: 20px;
 	background: #fff;
 	border-radius: 5px;
+}
+.main_header select{
+	width: 200px;
+	padding: 4px;
+	border: none;
+	outline: none;
 }
 .content {
 	padding: 20px;
-	margin: 30px 0;
+	margin: 20px 0;
 	background: #fff;
 	border-radius: 5px;
+	max-height: 50vh;
+	overflow-y: scroll;
 }
 .content table {
 	width: 100%;
@@ -110,6 +133,7 @@ aside {
 	padding: 20px;
 	background: #fff;
 	border-radius: 5px;
+
 }
 
 aside h3{
@@ -121,4 +145,29 @@ aside h3{
 }
 .sidebar_link a:hover {
 	background: #f4f4f4;
+}
+
+.btn {
+	padding: 10px 20px;
+	outline: none;
+	border: none;
+	text-transform: uppercase;
+	cursor:  pointer;
+	margin: 10px 0;
+}	
+.btn-dark {
+	background: #333;
+	color: #fff;
+}
+.btn-block {
+	width:  100%;
+}
+form > label {
+	display:  block;
+}
+form > label input[type="text"]{
+	width: 90%;
+	padding: 5px;
+	margin: 10px;
+
 }

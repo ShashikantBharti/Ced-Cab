@@ -5,7 +5,7 @@
 		<div id="breadcrumb" class="text-center">
 			<h1>User Registration</h1>
 		</div>
-		<!-- //Breadcrumb -->
+		<!-- //Breadcrumb --> 
 		<!-- Login Form -->
 		<div id="input-form">
 			<div id="message"></div>
@@ -16,7 +16,7 @@
 					<p id="error-message" class="error"></p>
 				</label>
 				<label for="email">
-					<span>Email ID</span>
+					<span>User Name</span>
 					<input type="email" name="email" id="email">
 					<p id="error-message" class="error"></p>
 				</label>
@@ -33,7 +33,7 @@
 				<label for="password">
 					<span>Re-Password</span>
 					<input type="password" name="re-password" id="re-password">
-					<p id="error-message" class="error"><?php echo $msg; ?></p>
+					<p id="error-message" class="<?php if($register){ echo "success";} else {echo "error";} ?>"><?php echo $msg; ?></p>
 				</label>
 				<input type="submit" class="btn btn-dark" name="submit" value="Register">
 			</form>
