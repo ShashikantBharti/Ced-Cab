@@ -33,7 +33,7 @@ $url = basename($_SERVER['REQUEST_URI']);
 <main>
 	<!-- Sidebar -->
 	<aside>
-		<h3>Welcome Admin</h3>
+		<h1>Welcome Admin</h1>
 		<div class="sidebar_link <?php  if($url == 'index.php' || $url=='admin'){echo "active_link"; }  ?>">
 			<a href="index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
 		</div>
@@ -42,11 +42,12 @@ $url = basename($_SERVER['REQUEST_URI']);
 			<a href="all_users.php"><i class="fas fa-users"></i> All Users &raquo;</a>
 		</div>
 		<div class="sidebar_link <?php  if($url == 'active_users.php'){echo "active_link"; }  ?>">
-			<a href="active_users.php"><i class="fas fa-user-friends"></i> Active Users &raquo;</a>
+			<a href="active_users.php"><i class="fas fa-user-friends"></i> Approved Users &raquo;</a>
 		</div>
 		<div class="sidebar_link <?php  if($url == 'blocked_users.php'){echo "active_link"; }  ?>">
-			<a href="blocked_users.php"><i class="fas fa-users-slash"></i> Blocked Users &raquo;</a>
+			<a href="blocked_users.php"><i class="fas fa-users-slash"></i> Pending Users &raquo;</a>
 		</div>
+		<div class="seperator"></div>
 		<div class="sidebar_link <?php  if($url == 'locations.php'){echo "active_link"; }  ?>">
 			<a href="locations.php"><i class="fas fa-map-marker-alt"></i> Locations &raquo;</a>
 		</div>
@@ -56,11 +57,25 @@ $url = basename($_SERVER['REQUEST_URI']);
 		
 		<div class="seperator"></div>
 		
-		<div class="sidebar_link">
-			<a href="#"><i class="fas fa-comment-dots"></i> New Ride Requests &raquo;</a>
+		
+		<div class="sidebar_link <?php  if($url == 'total_rides.php'){echo "active_link"; }  ?>">
+			<a href="total_rides.php"> <i class="fas fa-taxi"></i> All Rides &raquo;</a>
 		</div>
-		<div class="sidebar_link">
-			<a href="#"> <i class="fas fa-taxi"></i> All Ride Requests &raquo;</a>
+		<div class="sidebar_link <?php  if($url == 'new_requests.php'){echo "active_link"; }  ?>">
+			<a href="new_requests.php"><i class="fas fa-comment-dots"></i> Pending Ride Requests &raquo;</a>
+		</div>
+		<div class="sidebar_link <?php  if($url == 'completed_rides.php'){echo "active_link"; }  ?>">
+			<a href="completed_rides.php"><i class="fas fa-check"></i> Completed Rides &raquo;</a>
+		</div>
+		<div class="sidebar_link <?php  if($url == 'cancelled_rides.php'){echo "active_link"; }  ?>">
+			<a href="cancelled_rides.php"><i class="fas fa-comment-slash"></i> Cancelled Rides &raquo;</a>
+		</div>
+		<div class="seperator"></div>
+		<div class="sidebar_link <?php  if($url == 'change_password.php'){echo "active_link"; }  ?>">
+			<a href="change_password.php"><i class="fas fa-key"></i> Change Password &raquo;</a>
+		</div>
+		<div class="sidebar_link <?php  if($url == 'logout.php'){echo "active_link"; }  ?>">
+			<a href="logout.php"><i class="fa fa-power-off"></i> Logout &raquo;</a>
 		</div>
 	</aside>
 	<!-- //Sidebar -->

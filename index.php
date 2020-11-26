@@ -3,7 +3,6 @@
 	$query = new Query;
 	$locations = $query -> getData('tbl_location');
 
-
 ?>
 		<!-- Showcase -->
 		<div id="showcase">
@@ -63,16 +62,17 @@
 						<?php 
 							if(isset($_SESSION['IS_ADMIN'])) {
 								if($_SESSION['IS_ADMIN']) {
-									$href = "login.php";
+									echo '<a href="login.php" class="btn btn-dark btn-block">Book Cab</a>';
 								} else {
-									$href = "index.php?id=".$_SESSION['USER_ID'];
+									echo '<input type="text" value="'.$_SESSION['USER_ID'].'" name="user_id" hidden>';
+									echo '<button type="submit" name="submit" value="Book_Now" class="btn btn-dark btn-block">Book Cab</button>';
 								}
 							} else {
-								$href = "login.php";
+								echo '<a href="login.php" class="btn btn-dark btn-block">Book Cab</a>';
 							}
 						?>
 
-						<a href="<?php echo $href; ?>" class="btn btn-dark btn-block">Book Now</a>
+						<p class="<?php if($result){ echo 'success'; } else{ echo 'error'; } ?>"><?php echo $msg; ?></p>
 					</form>
 				</div>
 			</div>

@@ -23,7 +23,7 @@ class Query extends Database {
 		$sql = "SELECT * FROM `$table`";
 		if($fields != '') {
 			$fields = "`".implode('`,`',$fields)."`";
-			$sql = "SELECT `$fields` FROM `$table`";
+			$sql = "SELECT $fields FROM `$table`";
 		}
 		if($conditions != '') {
 			$sql .= " WHERE ";
@@ -163,4 +163,129 @@ class User extends Query {
 	}
 }
 
+
+class Cab {
+	private $cab_type;
+	private $total_distance;
+	private $luggage;
+
+	public function __construct($cab_type='',$total_distance='',$luggage='') {
+		$this->cab_type = $cab_type;
+		$this->total_distance = $total_distance;
+		$this->luggage = $luggage;
+	}
+
+	public function totalFare(){
+		switch($this->cab_type) {
+			case 1: 
+				$fare = 50;
+				if($this->total_distance <= 10) {
+					$fare += $this->total_distance * 13.50;
+				} else if($this->total_distance > 10 && $this->total_distance <= 60) {
+					$fare += 10 * 13.50;
+					$fare += ($this->total_distance - 10) * 12.00;
+				} else if($this->total_distance > 60 && $this->total_distance <= 160) {
+					$fare += 10 * 13.50;
+					$fare += 50 * 12.00;
+					$fare += ($this->total_distance - 50 - 10) * 10.20;
+				} else {
+					$fare += 10 * 13.50;
+					$fare += 50 * 12.00;
+					$fare += 100 * 10.20;
+					$fare += ($this->total_distance - 100 - 50 - 10) * 8.50;
+				}
+			
+			break;
+			case 2: 
+				$fare = 150;
+				if($this->total_distance <= 10) {
+					$fare += $this->total_distance * 14.50;
+				} else if($this->total_distance > 10 && $this->total_distance <= 60) {
+					$fare += 10 * 14.50;
+					$fare += ($this->total_distance - 10) * 13.00;
+				} else if($this->total_distance > 60 && $this->total_distance <= 160) {
+					$fare += 10 * 14.50;
+					$fare += 50 * 13.00;
+					$fare += ($this->total_distance - 50 - 10) * 11.20;
+				} else {
+					$fare += 10 * 14.50;
+					$fare += 50 * 13.00;
+					$fare += 100 * 11.20;
+					$fare += ($this->total_distance - 100 - 50 - 10) * 9.50;
+				}
+
+				if($this->luggage != 0 && $this->luggage <= 10) {
+					$fare += 50;
+				} else if ($this->luggage > 10 && $this->luggage <= 20) {
+					$fare += 100;
+				} else if($this->luggage > 20){
+					$fare += 200;
+				} else {
+					$fare += 0;
+				}
+			
+			break;
+			case 3: 
+				$fare = 200;
+				if($this->total_distance <= 10) {
+					$fare += $this->total_distance * 15.50;
+				} else if($this->total_distance > 10 && $this->total_distance <= 60) {
+					$fare += 10 * 15.50;
+					$fare += ($this->total_distance - 10) * 14.00;
+				} else if($this->total_distance > 60 && $this->total_distance <= 160) {
+					$fare += 10 * 15.50;
+					$fare += 50 * 14.00;
+					$fare += ($this->total_distance - 50 - 10) * 12.20;
+				} else {
+					$fare += 10 * 15.50;
+					$fare += 50 * 14.00;
+					$fare += 100 * 12.20;
+					$fare += ($this->total_distance - 100 - 50 - 10) * 10.50;
+				}
+
+				if($this->luggage != 0 && $this->luggage <= 10) {
+					$fare += 50;
+				} else if ($this->luggage > 10 && $this->luggage <= 20) {
+					$fare += 100;
+				} else if($this->luggage > 20){
+					$fare += 200;
+				} else {
+					$fare += 0;
+				}
+			 
+			break;
+			case 4: 
+				$fare = 250;
+				if($this->total_distance <= 10) {
+					$fare += $this->total_distance * 16.50;
+				} else if($this->total_distance > 10 && $this->total_distance <= 60) {
+					$fare += 10 * 16.50;
+					$fare += ($this->total_distance - 10) * 15.00;
+				} else if($this->total_distance > 60 && $this->total_distance <= 160) {
+					$fare += 10 * 16.50;
+					$fare += 50 * 15.00;
+					$fare += ($this->total_distance - 50 - 10) * 13.20;
+				} else {
+					$fare += 10 * 16.50;
+					$fare += 50 * 15.00;
+					$fare += 100 * 13.20;
+					$fare += ($this->total_distance - 100 - 50 - 10) * 11.50;
+				}
+
+				if($this->luggage != 0 && $this->luggage <= 10) {
+					$fare += 50 * 2;
+				} else if ($this->luggage > 10 && $this->luggage <= 20) {
+					$fare += 100 * 2;
+				} else if($this->luggage > 20){
+					$fare += 200 * 2;
+				} else {
+					$fare += 0;
+				}
+			
+			break;
+		}
+
+		return $fare;
+	}
+}
 ?>

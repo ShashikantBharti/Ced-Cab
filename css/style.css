@@ -45,9 +45,11 @@ a {
 	width: 100%;
 }
 .error {
+	margin: 10px 0;
 	color: red;
 }
 .success {
+	margin: 10px 0;
 	color: green;
 }
 /* Header */
@@ -262,7 +264,61 @@ footer i{
 	font-size: small;
 }
 
-
+/* User Dashboard */
+main {
+	display: flex;
+}
+aside {
+	background: #f4f4f4;
+	padding: 30px;
+}
+aside h1 {
+	margin-bottom: 50px;
+}
+.seperator {
+	margin: 10px 0;
+	border-bottom: 1px solid #333;
+}
+.sidebar_link a{
+	padding: 15px;
+	font-size: 16px;
+	display: block;
+	color: #333;
+}
+.sidebar_link a:hover {
+	background: #ddd;
+}
+.active_link {
+	background: #b4eeb4;
+}
+.main_content {
+	background: #133337;
+	height: 90vh;
+	flex: 70%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	color: #fff;
+}
+.home_page h1{
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+.main_content form label {
+	display: block;
+	margin: 20px 0;
+}
+.main_content form label span {
+	display: inline-block;
+	width: 150px;
+	text-align: left !important;
+}
+.main_content form label input,select {
+	width: 350px;
+	padding: 5px;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {...}
 

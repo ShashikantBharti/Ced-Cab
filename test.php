@@ -2,7 +2,7 @@
 require 'functions.inc.php';
 
 $query = new Query;
-$result = $query->getData('tbl_user','',["user_name"=>'admin',"password"=>'5cbcf07e36fe37142b407ace0211cbf7']);
+$result = $query->getData('tbl_ride',["total_distance"]);
 echo '<pre>';
 print_r($result);
 

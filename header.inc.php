@@ -39,8 +39,29 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 					}
 				}
 			}
-	} else {
-		echo "OOPs, something went wrong!!!";
+	} else if($_REQUEST['submit'] == 'Book_Now'){
+		$query = new Query;
+		$result = $query -> getData('tbl_location');
+		$locations = array();
+		foreach($result as $value) {
+			$locations[$value['name']] = $value['distance'];
+		}
+		$user_id = $_REQUEST['user_id'];
+		$pickup_loc = $_REQUEST['pickup'];
+		$drop_loc = $_REQUEST['drop'];
+		$cab_type = $_REQUEST['cab_type'];
+		$luggage = $_REQUEST['luggage'];
+		$ride_date = date('d-m-Y h:i:s');
+		$total_distance = abs($locations[$drop_loc]-$locations[$pickup_loc]);
+		$cab = new Cab($cab_type, $total_distance, $luggage);
+		$total_fare = $cab -> totalFare();
+		
+		$result = $query -> insertData('tbl_ride',["ride_date"=>$ride_date,"pickup_loc"=>$pickup_loc,"drop_loc"=>$drop_loc,"total_distance"=>$total_distance,"luggage"=>$luggage,"total_fare"=>$total_fare,"status"=>0,"user_id"=>$user_id]);
+		if($result) {
+			$msg = "Your cab is booked successfully!";
+		} else {
+			$msg = "Your cab is not booked! Something went wrong!";
+		}
 	}
 }
 
