@@ -1,7 +1,7 @@
 <?php
 	require 'header.inc.php';
 	$query = new Query;
-	$result = $query -> getData('tbl_ride','',["status"=>0]);
+	$result = $query -> getData('tbl_ride','',["status"=>2]);
 	
 	if(isset($_REQUEST['action'])) {
 		$query = new Query;
@@ -9,23 +9,23 @@
 		$id = $_REQUEST['id'];
 		if($_REQUEST['action'] == 'delete'){
 			if($query -> deleteData('tbl_ride',["ride_id"=>$id])){
-				header('location: new_requests.php');
+				header('location: completed_rides.php');
 			}
 		} else if($_REQUEST['action'] == 0) {
 			if($query->updateData('tbl_ride',["status"=>1],["ride_id"=>$id])){
-				header('location: new_requests.php');
+				header('location: completed_rides.php');
 			}
 		} else if($_REQUEST['action'] == 1) {
 			if($query->updateData('tbl_ride',["status"=>0],["ride_id"=>$id])){
-				header('location: new_requests.php');
+				header('location: completed_rides.php');
 			}
 		} else if($_REQUEST['action'] == -1) {
 			if($query->updateData('tbl_ride',["status"=>-1],["ride_id"=>$id])){
-				header('location: new_requests.php');
+				header('location: completed_rides.php');
 			}
 		} else {
 			if($query->updateData('tbl_ride',["status"=>2],["ride_id"=>$id])){
-				header('location: new_requests.php');
+				header('location: completed_rides.php');
 			}
 		}
 
@@ -34,7 +34,7 @@
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="main_header">
-			<h4>Pending Rides</h4>
+			<h4>Completed Rides</h4>
 			<select name="filter" id="filter">
 				<option value="">-- Filter By --</option>
 				<option value="1">Last Week</option>
@@ -46,7 +46,7 @@
 				<option value="total_fare">Fare</option>
 				<option value="total_distance">Distance</option>
 			</select>
-			<input type="hidden" name="status" id="status" value='0'>
+			<input type="hidden" name="status" id="status" value='2'>
 		</div>
 		<div class="content">
 			<table>

@@ -1,5 +1,12 @@
 <?php
 	require 'header.inc.php';
+	if(isset($_SESSION['IS_ADMIN'])) {
+		if($_SESSION['IS_ADMIN']) {
+			header('location:index.php');
+		}
+	} else {
+		header('location:index.php');
+	}
 	$url = basename($_SERVER['REQUEST_URI']);
 	$query = new Query;
 	$locations = $query -> getData('tbl_location');
@@ -22,7 +29,7 @@
 			</label>
 			<label for="cab_type">
 				<span>Confirm Password</span>
-				<input type="password" name="re_password" id="" placeholder="Confirm new password...">
+				<input type="password" name="confirm_password" id="" placeholder="Confirm new password...">
 			</label>
 			
 			<input type="text" value="<?php echo $_SESSION['USER_ID']; ?>" name="user_id" hidden>

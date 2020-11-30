@@ -26,7 +26,12 @@
 					<i class="fas fa-user-friends"></i>
 					<span>
 						<?php 
-							echo count($query->getData('tbl_user','',["is_block"=>0]));
+							$result = $query->getData('tbl_user','',["is_block"=>0]);
+							if($result){
+								echo count($result);
+							} else {
+								echo $result;
+							}
 						 ?>
 					 </span>					
 				</div>
@@ -37,7 +42,12 @@
 					<i class="fas fa-users-slash"></i> 	
 					<span>
 						<?php 
-							echo count($query->getData('tbl_user','',["is_block"=>1]));
+							$result = $query->getData('tbl_user','',["is_block"=>1]);
+							if($result) {
+								echo count($result);
+							} else {
+								echo $result;
+							}
 						 ?>
 					 </span>
 				</div>
@@ -53,7 +63,7 @@
 					 </span>
 					</span>
 				</div>
-				<h4>Total Rides</h4>
+				<h4><a href="total_rides.php">Total Rides</a></h4>
 			</div>
 			<div class="box box-5">
 				<div class="box_top">
@@ -62,14 +72,14 @@
 						<?php 
 							$result = $query->getData('tbl_ride','',["status"=>0]);
 							if($result) {
-								echo count($query->getData('tbl_ride','',["status"=>0]));
+								echo count($result);
 							} else {
 								echo $result;
 							}
 						 ?>
 					</span>
 				</div>
-				<h4>Total New Ride Requests</h4>
+				<h4><a href="new_requests.php">Total New Ride Requests</a></h4>
 			</div>
 			<div class="box box-6">
 				<div class="box_top">

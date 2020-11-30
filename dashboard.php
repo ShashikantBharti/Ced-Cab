@@ -1,5 +1,13 @@
 <?php
 	require 'header.inc.php';
+	if(isset($_SESSION['IS_ADMIN'])) {
+		if($_SESSION['IS_ADMIN']) {
+			header('location:index.php');
+		}
+	} else {
+		header('location:index.php');
+	}
+
 	$url = basename($_SERVER['REQUEST_URI']);
 ?>
 
@@ -10,7 +18,7 @@
 	<div class="main_content">
 		<div class="home_page">
 			<h1>Enjoy Your Journey With CedCab</h1>
-			<button class="btn btn-light">Book New Cab</button>
+			<a href="book_new_ride.php" class="btn btn-light">Book New Cab</a>
 		</div>
 	</div>
 </main>

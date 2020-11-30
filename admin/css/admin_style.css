@@ -31,6 +31,12 @@ a {
 .inactive {
 	color: #333;
 }
+.completed {
+	color: #003366;
+}
+.cancelled {
+	color: orange;
+}
 .edit {
 	color: #088da5;
 }

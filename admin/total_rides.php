@@ -4,36 +4,51 @@
 	$result = $query -> getData('tbl_ride');
 	
 	if(isset($_REQUEST['action'])) {
+		$query = new Query;
+		echo $_REQUEST['action'];
 		$id = $_REQUEST['id'];
 		if($_REQUEST['action'] == 'delete'){
-			$query = new Query;
 			if($query -> deleteData('tbl_ride',["ride_id"=>$id])){
 				header('location: total_rides.php');
 			}
-		} else if($_REQUEST['action'] == 'active') {
-			$query = new Query;
+		} else if($_REQUEST['action'] == 0) {
+			if($query->updateData('tbl_ride',["status"=>1],["ride_id"=>$id])){
+				header('location: total_rides.php');
+			}
+		} else if($_REQUEST['action'] == 1) {
 			if($query->updateData('tbl_ride',["status"=>0],["ride_id"=>$id])){
 				header('location: total_rides.php');
 			}
-		} else if($_REQUEST['action'] == 'inactive') {
-			$query = new Query;
-			if($query->updateData('tbl_ride',["status"=>1],["ride_id"=>$id])){
+		} else if($_REQUEST['action'] == -1) {
+			if($query->updateData('tbl_ride',["status"=>-1],["ride_id"=>$id])){
+				header('location: total_rides.php');
+			}
+		} else {
+			if($query->updateData('tbl_ride',["status"=>2],["ride_id"=>$id])){
 				header('location: total_rides.php');
 			}
 		}
 
-	} 
-?>
+	} 	
+?> 
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="main_header">
-			<h4>Sort By</h4>
-			<select name="sort_by" id="sort_by">
-				<option value="">Choose Option--</option>
-				<option value="">Name</option>
-				<option value="">Date</option>
-				<option value="">Total Fare</option>
+			<h4>Total Rides</h4>
+			<select name="filter" id="filter">
+				<option value="">-- Filter By --</option>
+				<option value="1">Last Week</option>
+				<option value="2">Last Month</option>
 			</select>
+			<select name="sort" id="sort">
+				<option value="">--Sort By--</option>
+				<option value="ride_date">Date</option>
+				<option value="total_fare">Fare</option>
+				<option value="total_distance">Distance</option>
+				<option value="pickup_loc">Pickup Location</option>
+				<option value="luggage">Luggage</option>
+			</select>
+			<input type="hidden" name="status" id="status" value=''>
 		</div>
 		<div class="content">
 			<table>
@@ -42,16 +57,16 @@
 						<th>Sr.</th>
 						<th>Pickup Location</th>
 						<th>Drop Location</th>
-						<th>Total Distance</th>
-						<th>Luggage</th>
-						<th>Total Fare</th>
+						<th>Total Distance (KM)</th>
+						<th>Luggage (KG)</th>
+						<th>Total Fare (INR)</th>
 						<th>Ride Date</th>
 						<th>User Name</th>
 						<th>Status</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="showData">
 					<?php 
 					$sr = 1;
 					if($result != 0) {
@@ -69,24 +84,33 @@
 						<td><?php echo $user[0]['name']; ?></td>
 						<td>
 							<?php 
-								if($ride['status']){
-									echo 'Active';
-								} else {
+								if($ride['status'] == -1){
+									echo 'Cancelled';
+								} else if($ride['status'] == 0){
 									echo 'Inactive';
+								} else if($ride['status'] == 1) {
+									echo 'Approved';
+								} else {
+									echo 'Completed';
 								}
 							 ?>
 						 </td>
 						<td>
-							<a href="?action=<?php if($ride['status']){echo 'active';} else {echo 'inactive';} ?>&id=<?php echo $ride['ride_id']; ?>"><i class="<?php 
-								if(!$ride['status']){
-									echo 'inactive fas fa-toggle-off';
+							
+							<?php
+								if($ride['status'] == -1){
+									echo '<a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
+									echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a>';
+								} else if($ride['status'] == 0){
+									echo '<a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
+									echo '<a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>';
+								} else if($ride['status'] == 1) {
+									echo '<a href="?action=2&id='.$ride['ride_id'].'" title="Complete"><i class="completed fas fa-thumbs-up"></i></a> ';
+									echo ' <a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>';
 								} else {
-									echo 'active fas fa-toggle-on';
+									echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a>';
 								}
-							 ?> "></i></a>
-							<a href="#"><i class="fas fa-edit edit"></i></a>
-							<a href="#" title="Details"><i class="fas fa-eye details"></i></a>
-							<a href="?action=delete&id=<?php echo $ride['user_id']; ?>" title="Delete"><i class="fas fa-trash-alt delete"></i></a>
+							?>
 						</td>
 					</tr>
 					<?php
@@ -102,10 +126,12 @@
 		</div>
 		<div class="main_footer">
 			<div>Copyright &copy; CedCab</div>
-			<div>Design & Developed By CEDCOSS</div>
+			<div>Designed & Developed By CEDCOSS</div>
 		</div>
 	</div>
 </main>
 <!-- //Main Content -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="js/sorting.js"></script>
 </body>
 </html>

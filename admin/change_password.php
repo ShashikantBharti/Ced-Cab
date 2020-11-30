@@ -38,7 +38,7 @@ if(isset($_REQUEST['submit'])) {
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="main_header">
-			<h4>Enter Values</h4>
+			<h4>Change Password</h4>
 		</div>
 		<div class="content">
 			<form action="" method="POST">
@@ -60,7 +60,7 @@ if(isset($_REQUEST['submit'])) {
 		</div>
 		<div class="main_footer">
 			<div>Copyright &copy; CedCab</div>
-			<div>Design & Developed By CEDCOSS</div>
+			<div>Designed & Developed By CEDCOSS</div>
 		</div>
 	</div>
 </main>

@@ -1,7 +1,7 @@
 <?php
 	require 'header.inc.php';
 	$query = new Query;
-	$locations = $query -> getData('tbl_location');
+	$locations = $query -> getData('tbl_location','',["is_available"=>1]);
 
 ?>
 		<!-- Showcase -->
@@ -10,7 +10,7 @@
 			<p>Choose from a range of categories and price</p>
 			<a href="#book-now" class="btn btn-dark">Book Now</a>
 		</div>
-		<!-- //Showcase -->
+		<!-- //Showcase --> 
 		<!-- Book Now -->
 		<div id="book-now">
 			<div class="container">

@@ -1,9 +1,11 @@
 <?php
 require '../functions.inc.php';
-if(!isset($_SESSION['USER_ID'])){
-	if(!$_SESSION['IS_ADMIN']){
-	header('location: ../');
-	}
+if(isset($_SESSION['USER_ID'])) {
+		if(!$_SESSION['IS_ADMIN']) {
+			header('location: ../index.php');
+		} 
+} else {
+	header('location: ../index.php');
 }
 $url = basename($_SERVER['REQUEST_URI']);
 ?>
@@ -15,6 +17,8 @@ $url = basename($_SERVER['REQUEST_URI']);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="ha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+	<!-- Charts -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	<link rel="stylesheet" href="css/admin_style.css">
 </head>
 <body>
@@ -22,7 +26,7 @@ $url = basename($_SERVER['REQUEST_URI']);
 <!-- Header -->
 <header>
 	<div class="logo">
-		<img src="images/logo.png" alt="">
+		<a href="index.php"><img src="images/logo.png" alt=""></a>
 	</div>
 	<div class="links">
 		<a href="logout.php" class="links"><i class="fa fa-power-off"></i> Logout</a>
@@ -50,6 +54,9 @@ $url = basename($_SERVER['REQUEST_URI']);
 		<div class="seperator"></div>
 		<div class="sidebar_link <?php  if($url == 'locations.php'){echo "active_link"; }  ?>">
 			<a href="locations.php"><i class="fas fa-map-marker-alt"></i> Locations &raquo;</a>
+		</div>
+		<div class="sidebar_link <?php  if($url == 'blocked_locations.php'){echo "active_link"; }  ?>">
+			<a href="blocked_locations.php"><i class="fas fa-ban"></i> Blocked Locations &raquo;</a>
 		</div>
 		<div class="sidebar_link <?php  if($url == 'add_location.php'){echo "active_link"; }  ?>">
 			<a href="add_location.php"><i class="fas fa-map-marked-alt"></i> Add Location &raquo;</a>

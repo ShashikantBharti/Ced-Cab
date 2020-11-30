@@ -4,40 +4,41 @@
 		if($_SESSION['IS_ADMIN']) {
 			header('location:index.php');
 		}
-	} else {
+	} else { 
 		header('location:index.php');
 	}
 	$url = basename($_SERVER['REQUEST_URI']);
 	$query = new Query;
 	$user_id = $_SESSION['USER_ID'];
 	$locations = $query -> getData('tbl_location');
-	$result = $query -> getData('tbl_ride','',["user_id"=>$user_id,"status"=>2]);
+	$result = $query -> getData('tbl_ride','',["user_id"=>$user_id,"status"=>-1]);
 
 	if(isset($_REQUEST['action'])) {
 		$query = new Query;
 		$id = $_REQUEST['id'];
 		if($_REQUEST['action'] == 'delete'){
 			if($query -> deleteData('tbl_ride',["ride_id"=>$id])){
-				header('location: completed_rides.php');
+				header('location: cancelled_rides.php');
 			}
 		} else if($_REQUEST['action'] == 0) {
 			if($query->updateData('tbl_ride',["status"=>1],["ride_id"=>$id])){
-				header('location: completed_rides.php');
+				header('location: cancelled_rides.php');
 			}
 		} else if($_REQUEST['action'] == 1) {
 			if($query->updateData('tbl_ride',["status"=>0],["ride_id"=>$id])){
-				header('location: completed_rides.php');
+				header('location: cancelled_rides.php');
 			}
 		} else if($_REQUEST['action'] == -1) {
 			if($query->updateData('tbl_ride',["status"=>-1],["ride_id"=>$id])){
-				header('location: completed_rides.php');
+				header('location: cancelled_rides.php');
 			}
 		} else {
 			if($query->updateData('tbl_ride',["status"=>2],["ride_id"=>$id])){
-				header('location: completed_rides.php');
+				header('location: cancelled_rides.php');
 			}
 		}
-	} 
+
+	} 	
 ?>
 
 <main>
@@ -54,7 +55,7 @@
 				<option value="pickup_loc">Pickup Location</option>
 			</select>
 			<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['USER_ID']; ?>">
-			<input type="hidden" name="status" id="status" value='2'>
+			<input type="hidden" name="status" id="status" value='-1'>
 		</h4>
 		<div class="rides">
 			

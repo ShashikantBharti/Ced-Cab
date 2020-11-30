@@ -52,6 +52,25 @@ a {
 	margin: 10px 0;
 	color: green;
 }
+
+.active {
+	color: green;
+}
+.inactive {
+	color: #333;
+}
+.completed {
+	color:  #8bc53f;
+}
+.cancelled {
+	color: orange;
+}
+.edit {
+	color: #088da5;
+}
+.delete {
+	color: tomato;
+}
 /* Header */
 header {
 	display: flex;
@@ -319,6 +338,28 @@ aside h1 {
 	width: 350px;
 	padding: 5px;
 }
+.main_content h4{
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0;
+	width: 90%;
+}
+.rides {
+	height: 2000px;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	padding: 20px 0;
+}
+.rides table {
+	width: 100%;
+}
+
+.rides table th,td{
+	padding: 10px 0;
+	border-bottom: 1px solid #333;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {...}
 

@@ -1,8 +1,44 @@
 <?php
 	require 'header.inc.php';
+	if(isset($_SESSION['IS_ADMIN'])) {
+		if($_SESSION['IS_ADMIN']) {
+			header('location:index.php');
+		}
+	} else {
+		header('location:index.php');
+	}
 	$url = basename($_SERVER['REQUEST_URI']);
 	$query = new Query;
+	$user_id = $_SESSION['USER_ID'];
 	$locations = $query -> getData('tbl_location');
+	$result = $query -> getData('tbl_ride','',["user_id"=>$user_id,"status"=>0]);
+
+	if(isset($_REQUEST['action'])) {
+		$query = new Query;
+		$id = $_REQUEST['id'];
+		if($_REQUEST['action'] == 'delete'){
+			if($query -> deleteData('tbl_ride',["ride_id"=>$id])){
+				header('location: pending_rides.php');
+			}
+		} else if($_REQUEST['action'] == 0) {
+			if($query->updateData('tbl_ride',["status"=>1],["ride_id"=>$id])){
+				header('location: pending_rides.php');
+			}
+		} else if($_REQUEST['action'] == 1) {
+			if($query->updateData('tbl_ride',["status"=>0],["ride_id"=>$id])){
+				header('location: pending_rides.php');
+			}
+		} else if($_REQUEST['action'] == -1) {
+			if($query->updateData('tbl_ride',["status"=>-1],["ride_id"=>$id])){
+				header('location: pending_rides.php');
+			}
+		} else {
+			if($query->updateData('tbl_ride',["status"=>2],["ride_id"=>$id])){
+				header('location: pending_rides.php');
+			}
+		}
+
+	} 
 ?>
 
 <main>
@@ -10,48 +46,86 @@
 		require 'sidebar.inc.php';
 	?>
 	<div class="main_content">
-		<h1>Book Your Cab</h1>
-		<form action="" method="POST">
-			<label for="pickup">
-				<span>Pickup</span>
-				<select name="pickup" id="pickup">
-					<option value="">Current Location</option>
-					<?php
-					foreach($locations as $location) {
-						echo '<option value="'.$location['name'].'">'.$location['name'].'</option>';
+		<h4>
+			<select name="sort" id="sort">
+				<option value="">--Sort By--</option>
+				<option value="ride_date">Date</option>
+				<option value="total_fare">Fare</option>
+				<option value="total_distance">Distance</option>
+				<option value="pickup_loc">Pickup Location</option>
+			</select>
+			<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['USER_ID']; ?>">
+			<input type="hidden" name="status" id="status" value='0'>
+		</h4>
+		<div class="rides">
+			
+			<table>
+			<thead>
+				<tr>
+					<th>Sr.</th>
+					<th>Pickup Location</th>
+					<th>Drop Location</th>
+					<th>Total Distance</th>
+					<th>Total Fare</th>
+					<th>Date Time</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="showData">
+				<?php 
+				$sr = 1;
+				if($result != 0) {
+					foreach($result as $ride){
+
+				?>
+				<tr>
+					<td><?php echo $sr; ?></td>
+					<td><?php echo $ride['pickup_loc']; ?></td>
+					<td><?php echo $ride['drop_loc']; ?></td>
+					<td><?php echo $ride['total_distance']; ?> KM</td>
+					<td>Rs. <?php echo $ride['total_fare']; ?>/-</td>
+					<td><?php echo $ride['ride_date']; ?></td>
+					<td>
+						<?php 
+							if($ride['status'] == -1){
+								echo 'Cancelled';
+							} else if($ride['status'] == 0){
+								echo 'Inactive';
+							} else if($ride['status'] == 1) {
+								echo 'Approved';
+							} else {
+								echo 'Completed';
+							}
+						 ?>
+					 </td>
+					 <td>
+						<?php
+							if($ride['status'] == -1){
+								echo '<a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
+								echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a>';
+							} else if($ride['status'] == 0){
+								echo '<a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
+								echo '<a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>';
+							} else if($ride['status'] == 1) {
+								echo '<a href="?action=2&id='.$ride['ride_id'].'" title="Complete"><i class="completed fas fa-thumbs-up"></i></a> ';
+								echo ' <a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>';
+							} else {
+								echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a>';
+							}
+						?>
+						</td>
+				</tr>
+				<?php
+						$sr++;
+						}
+					}else {
+						echo "No Record Found!";
 					}
-					?>
-				</select>
-			</label>
-			<label for="drop">
-				<span>Drop</span>
-				<select name="drop" id="drop">
-					<option value="">Drop Location</option>
-					<?php
-					foreach($locations as $location) {
-						echo '<option value="'.$location['name'].'">'.$location['name'].'</option>';
-					}
-					?>
-				</select>
-			</label>
-			<label for="cab_type">
-				<span>Cab Type</span>
-				<select name="cab_type" id="cab_type">
-					<option value="">Cab Type</option>
-					<option value="1">CedMicro</option>
-					<option value="2">CedMini</option>
-					<option value="3">CedRoyal</option>
-					<option value="4">CedSUV</option>
-				</select>
-			</label>
-			<label for="luggage" class="luggage">
-				<span>Luggage</span>
-				<input type="text" name="luggage" id="luggage" placeholder="Enter Weight in KG">
-			</label>
-			<input type="text" value="<?php echo $_SESSION['USER_ID']; ?>" name="user_id" hidden>
-			<button type="submit" name="submit" value="Book_Now" class="btn btn-light btn-block">Book Cab</button>
-			<p class="<?php if($result){ echo 'success'; } else{ echo 'error'; } ?>"><?php echo $msg; ?></p>
-		</form>
+				?>
+			</tbody>
+		</table>
+		</div>
 	</div>
 </main>
 

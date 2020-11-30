@@ -30,8 +30,6 @@ $(document).ready(function() {
         });
     });
 
-
-
     
     $('select[name="cab_type"]').on('change', function() {
         if ($(this).val() == 1) {
@@ -41,30 +39,62 @@ $(document).ready(function() {
             $('.luggage').show();
         }
     });
-/*
-    function calculateFare(e) {
-        e.preventDefault();
-        let data = new FormData(this);
-        let html = '';
+
+
+    // Sorting
+    $('#sort').on('change',function(){
+        let field = $(this).val();
+        let user_id = $('#user_id').val();
+        let status = $('#status').val();
+        data = {user_id:user_id, field: field, status:status}
         $.ajax({
-            url: "fare.php",
+            url: "sort_data.php",
             method: "POST",
             data: data,
             dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function(res) {
-                html += `<div class="d-flex justify-content-between">Pickup Point : <strong>${res.pickup}</strong></div>`;
-                html += `<div class="d-flex justify-content-between">Drop Point : <strong>${res.drop}</strong></div>`;
-                html += `<div class="d-flex justify-content-between">Total Distance : <strong>${res.distance} Km</strong></div>`;
-                if(res.luggage != ''){
-                    html += `<div class="d-flex justify-content-between">Total Weight : <strong>${res.luggage} Kg</strong></div>`;
-                }
-                html += `<div class="d-flex justify-content-between">Total Fare : <strong>Rs. ${res.fare}/-</strong></div>`;
-                $('#result').html(html);
-            }
-        });
-    }
+            success: function(res){
+                let html = '';
+                let sr = 1;
+                $.each(res,function(index, item){
+                    html += `<tr>`;
+                    html += `<td>${sr}</td>`;
+                    html += `<td>${item.pickup_loc}</td>`;
+                    html += `<td>${item.drop_loc}</td>`;
+                    html += `<td>${item.total_distance} KM</td>`;
+                    html += `<td>Rs. ${item.total_fare}/-</td>`;
+                    html += `<td>${item.ride_date}</td>`;
+                    html += `<td>`;
+                    if(item.status == -1){
+                        html += `Cancelled`;
+                    } else if(item.status == 0) {
+                        html += `Inactive`;
+                    } else if(item.status == 1) {
+                        html += 'Approved';
+                    } else {
+                        html += 'Completed';
+                    }
+                    html += `</td>`;
+                    html += `<td>`;
+                    if(item.status == -1){
+                        html += `<a href="?action=delete&id=${user_id}" title="Delete"><i class="fas fa-trash-alt delete"></i></a>`;
+                    } else if(item.status == 0) {
+                        html += `<a href="?action=-1&id=${user_id}" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>`;
+                    } else if(item.status == 1) {
+                        html += `<a href="?action=2&id=${user_id}" title="Completed"><i class="completed fas fa-thumbs-up"></i></a>`;
+                        html += `<a href="?action=-1&id=${user_id}" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>`;
+                    } else {
+                        html += `<a href="?action=delete&id=${user_id}" title="Delete"><i class="fas fa-trash-alt delete"></i></a>`;
+                    }
+                    html += `</td>`;
+                    html += `</tr>`;
+                    sr++;
+                    $('#showData').html(html);
 
-    */
+                });
+            },
+
+        });
+    });
+
+    
 });

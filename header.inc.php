@@ -1,22 +1,27 @@
 <?php
 require 'functions.inc.php';
-$msg = '';
+$msg = ''; 
 
+// Check Submit Request
 if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 	if($_REQUEST['submit'] == 'Login') {
 		$username = $_REQUEST['email'];
 		$password = $_REQUEST['password'];
+		$remme = isset($_REQUEST['remme'])?$_REQUEST['remme']:0;
+		
+		// Check if username and password is not empty
 		if($username == '' || $password == '') {
 			$msg = "All fields required!";
 		} else {
 			$user = new User;
-			$result = $user -> login($username, $password);
+			$result = $user -> login($username, $password, $remme); // Login
 			if(!$result){
-				$msg = "You are not active user!";
+				$msg = "You are not registered or not active user!";
 			}
+
 		}
 
-	} else if($_REQUEST['submit'] == 'Register') {
+	} else if($_REQUEST['submit'] == 'Register') { // Register New User
 			$name = $_REQUEST['name'];
 			$email = $_REQUEST['email'];
 			$mobile = $_REQUEST['mobile'];
@@ -26,12 +31,14 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 				$msg = "Password didn't match!!!";
 			} else {
 				$query = new Query;
+
+				// Check for Duplicate username.
 				if($query->getData('tbl_user','',["user_name"=>$email])) {
 					$msg = "You are already registered!";
 					$register = 0;
 				} else {
+					// Register User
 					$user = new User($email, $name, $mobile, $password);
-
 					if($register = $user -> register()) {
 						$msg = "Registration Successfull!!";
 					} else {
@@ -39,7 +46,8 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 					}
 				}
 			}
-	} else if($_REQUEST['submit'] == 'Book_Now'){
+	// New Cab Booking.
+	} elseif($_REQUEST['submit'] == 'Book_Now'){
 		$query = new Query;
 		$result = $query -> getData('tbl_location');
 		$locations = array();
@@ -51,16 +59,66 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 		$drop_loc = $_REQUEST['drop'];
 		$cab_type = $_REQUEST['cab_type'];
 		$luggage = $_REQUEST['luggage'];
+		if($luggage == '') {
+			$luggage = 0;
+		}
 		$ride_date = date('d-m-Y h:i:s');
 		$total_distance = abs($locations[$drop_loc]-$locations[$pickup_loc]);
 		$cab = new Cab($cab_type, $total_distance, $luggage);
 		$total_fare = $cab -> totalFare();
-		
-		$result = $query -> insertData('tbl_ride',["ride_date"=>$ride_date,"pickup_loc"=>$pickup_loc,"drop_loc"=>$drop_loc,"total_distance"=>$total_distance,"luggage"=>$luggage,"total_fare"=>$total_fare,"status"=>0,"user_id"=>$user_id]);
+		if($cab_type == 1) {
+			$cab_type = "CedMicro";
+		} else if($cab_type == 2) {
+			$cab_type = "CedMini";
+		} else if($cab_type == 3) {
+			$cab_type = "CedRoyal";
+		} else {
+			$cab_type = "CedSUV";
+		}
+		$result = $query -> insertData('tbl_ride',["ride_date"=>$ride_date,"pickup_loc"=>$pickup_loc,"drop_loc"=>$drop_loc,"total_distance"=>$total_distance,"luggage"=>$luggage,"cab_type"=>$cab_type,"total_fare"=>$total_fare,"status"=>0,"user_id"=>$user_id]);
 		if($result) {
-			$msg = "Your cab is booked successfully!";
+			$msg = "Your cab is booked successfully! and Total Fare is <strong>Rs.{$total_fare}</strong>";
 		} else {
 			$msg = "Your cab is not booked! Something went wrong!";
+		}
+	} else if($_REQUEST['submit'] == 'change_password') {
+		$old_password = $_REQUEST['old_password'];
+		$new_password = $_REQUEST['new_password'];
+		$confirm_password = $_REQUEST['confirm_password'];
+		if($old_password == '' || $new_password == '' || $confirm_password == '') {
+			$msg = "All fields required!!";
+			$result = 0;
+		} else {
+			$query = new Query;
+			$user_id = $_SESSION['USER_ID'];
+			$result = $query -> getData('tbl_user','',["user_id"=>$user_id]);
+			if($result[0]['password'] == md5($old_password)) {
+				$msg = "Old password not matched!!";
+				$result = 0;
+			} else {
+				if($new_password == $confirm_password) {
+					$result = $query->updateData('tbl_user',["password"=>md5($new_password)],["user_id"=>$user_id]);
+					if($result){
+						$msg = "Password Updated Successfully!";
+					} else {
+						$msg = "Password Updation Failed!";
+					}
+				} else {
+					$msg = "New and Confirm password didn't matched!";
+					$result = 0;
+				}
+			}
+		}
+	} else if($_REQUEST['submit'] == 'update_info') {
+		$name = $_REQUEST['name'];
+		$mobile = $_REQUEST['mobile'];
+		$user_id = $_SESSION['USER_ID'];
+		$query = new Query;
+		$result = $query->updateData('tbl_user',["name"=>$name,"mobile"=>$mobile],["user_id"=>$user_id]);
+		if($result){
+			$msg = "Information Updated Successfully!";
+		} else {
+			$msg = "Information Updation Failed!";
 		}
 	}
 }
@@ -80,7 +138,7 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 		<!-- Header -->
 		<header id="header">
 			<div class="logo">
-				<img src="images/logo.png" alt="">
+				<a href="index.php"><img src="images/logo.png" alt=""></a>
 			</div>
 			<nav>
 				<a href="index.php#header" class="active">Home</a>
@@ -92,7 +150,6 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 							echo '<a href="login.php">Sign In</a>';
 							echo '<a href="register.php">Sign Up</a>';
 						} else {
-							echo '<a href="logout.php">Logout</a>';
 							echo '<a href="dashboard.php">Dashboard</a>'; 
 						}
 					} else {
@@ -101,7 +158,7 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 					}
 				?>
 				
-				<a href="#book-now" class="btn btn-dark">Book Now</a>
+				<a href="index.php#book-now" class="btn btn-dark">Book Now</a>
 			</nav>
 		</header>
 		<!-- //Header -->

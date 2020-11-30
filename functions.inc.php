@@ -1,11 +1,11 @@
 <?php
 session_start();
+
 class Database {
 	private $host;
 	private $user;
 	private $password;
 	private $dbname;
-
 
 	protected function connect() {
 		$this->host = 'localhost';
@@ -19,7 +19,7 @@ class Database {
 }
 
 class Query extends Database {
-	public function getData($table,$fields='',$conditions='',$order_by_field='',$order_by_type='',$limit='') {
+	public function getData($table,$fields='',$conditions='',$order_by_field='',$order_by_type='',$between='') {
 		$sql = "SELECT * FROM `$table`";
 		if($fields != '') {
 			$fields = "`".implode('`,`',$fields)."`";
@@ -38,12 +38,14 @@ class Query extends Database {
 				$i++;
 			}
 		}
+		if($between != ''){
+			$sql .= " WHERE `ride_date`<='$between[0]' AND `ride_date`>='$between[1]'";
+			
+		}
 		if($order_by_field != '') {
 			$sql .= " ORDER BY `$order_by_field` $order_by_type";
 		}
-		if($limit != '') {
-			$sql .= " LIMIT  $limit";
-		}
+		
 		$result = $this->connect()->query($sql);
 		if ($result -> num_rows > 0) {
 			$arr = array();
@@ -136,10 +138,15 @@ class User extends Query {
 		return $result;
 	}
 
-	public function login($username='',$password='') {
+	public function login($username='',$password='',$remme='') {
 		if($username != '' && $password != '') {
+			if($remme) {
+				setcookie("username",$username);
+				setcookie("password",$password);
+			} 
 			$username = $this->connect()->real_escape_string($username);
 			$password = md5($this->connect()->real_escape_string($password));
+			
 			$result = $this -> getData('tbl_user','',["user_name"=>$username,"password"=>$password,"is_block"=>0]);
 			if($result) {
 				$_SESSION['USER_ID'] = $result[0]['user_id'];
@@ -147,7 +154,7 @@ class User extends Query {
 				if($result[0]['is_admin']) {
 					header('location: admin/');
 				} else {
-					header('location: index.php');
+					header('location: dashboard.php');
 				}
 			} else {
 				return 0;
