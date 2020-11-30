@@ -2,6 +2,7 @@
 		<footer>
 			<div class="container">
 				<div>
+					<h3>Quick Links</h3>
 					<ul>
 						<li><a href="#">Home</a></li>
 						<li><a href="#">About</a></li>

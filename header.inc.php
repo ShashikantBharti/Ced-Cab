@@ -58,28 +58,33 @@ if(isset($_REQUEST['submit']) && $_REQUEST['submit'] !== '') {
 		$pickup_loc = $_REQUEST['pickup'];
 		$drop_loc = $_REQUEST['drop'];
 		$cab_type = $_REQUEST['cab_type'];
-		$luggage = $_REQUEST['luggage'];
-		if($luggage == '') {
-			$luggage = 0;
-		}
-		$ride_date = date('d-m-Y h:i:s');
-		$total_distance = abs($locations[$drop_loc]-$locations[$pickup_loc]);
-		$cab = new Cab($cab_type, $total_distance, $luggage);
-		$total_fare = $cab -> totalFare();
-		if($cab_type == 1) {
-			$cab_type = "CedMicro";
-		} else if($cab_type == 2) {
-			$cab_type = "CedMini";
-		} else if($cab_type == 3) {
-			$cab_type = "CedRoyal";
+		if($pickup_loc == '' || $drop_loc == '' || $cab_type == '')	{
+			$msg = "Please choose options?";
+			$result = 0;
 		} else {
-			$cab_type = "CedSUV";
-		}
-		$result = $query -> insertData('tbl_ride',["ride_date"=>$ride_date,"pickup_loc"=>$pickup_loc,"drop_loc"=>$drop_loc,"total_distance"=>$total_distance,"luggage"=>$luggage,"cab_type"=>$cab_type,"total_fare"=>$total_fare,"status"=>0,"user_id"=>$user_id]);
-		if($result) {
-			$msg = "Your cab is booked successfully! and Total Fare is <strong>Rs.{$total_fare}</strong>";
-		} else {
-			$msg = "Your cab is not booked! Something went wrong!";
+			$luggage = $_REQUEST['luggage'];
+			if($luggage == '') {
+				$luggage = 0;
+			}
+			$ride_date = date('d-m-Y h:i:s');
+			$total_distance = abs($locations[$drop_loc]-$locations[$pickup_loc]);
+			$cab = new Cab($cab_type, $total_distance, $luggage);
+			$total_fare = $cab -> totalFare();
+			if($cab_type == 1) {
+				$cab_type = "CedMicro";
+			} else if($cab_type == 2) {
+				$cab_type = "CedMini";
+			} else if($cab_type == 3) {
+				$cab_type = "CedRoyal";
+			} else {
+				$cab_type = "CedSUV";
+			}
+			$result = $query -> insertData('tbl_ride',["ride_date"=>$ride_date,"pickup_loc"=>$pickup_loc,"drop_loc"=>$drop_loc,"total_distance"=>$total_distance,"luggage"=>$luggage,"cab_type"=>$cab_type,"total_fare"=>$total_fare,"status"=>0,"user_id"=>$user_id]);
+			if($result) {
+				$msg = "Your cab request has sent successfully! and Total Fare is <strong>Rs.{$total_fare}</strong>";
+			} else {
+				$msg = "Your cab is not booked! Something went wrong!";
+			}
 		}
 	} else if($_REQUEST['submit'] == 'change_password') {
 		$old_password = $_REQUEST['old_password'];

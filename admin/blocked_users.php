@@ -24,7 +24,7 @@
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="main_header">
-			<h4>All Users</h4>
+			<h4>Pending Users</h4>
 			<select name="sort_user" id="sort_user">
 				<option value="">--Sort By--</option>
 				<option value="name">Name</option>

@@ -111,5 +111,28 @@ $(document).ready(function() {
             $('#showData').html(html);
         });
     }
+
+    // Calculate Fare
+    $('#calFare').on('click',function(e){
+        e.preventDefault();
+        let pickup = $('#pickup').val();
+        let drop = $('#drop').val();
+        let cab_type = $('#cab_type').val();
+        let luggage = $('#luggage').val();
+        if(pickup == '' || drop == '' || cab_type == '') {
+            alert('please choose options?');
+        } else {
+            data = {pickup:pickup, drop:drop, cab_type:cab_type, luggage:luggage}
+            
+            $.ajax({
+                url: "calculate_fare.php",
+                method: "POST",
+                data: data,
+                success: function(res){
+                    $('#calFare').html(`Calculate Fare : <strong>Rs. ${res}/-</strong>`);
+                },
+            });
+        }
+    });
     
 });
