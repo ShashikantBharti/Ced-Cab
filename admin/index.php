@@ -97,7 +97,7 @@
 				</div>
 				<h4>Total Distance(KM)</h4>
 			</div>
-			<div class="box box-7">
+			 <div class="box box-7">
 				<div class="box_top">
 					<i class="fas fa-rupee-sign"></i>	
 					<span>
@@ -117,5 +117,6 @@
 	</div>
 </main>
 <!-- //Main Content -->
+
 </body>
 </html>

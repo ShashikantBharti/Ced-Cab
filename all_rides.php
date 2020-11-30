@@ -1,7 +1,7 @@
 <?php
 	require 'header.inc.php';
 	if(isset($_SESSION['IS_ADMIN'])) {
-		if($_SESSION['IS_ADMIN']) {
+		if($_SESSION['IS_ADMIN']) { 
 			header('location:index.php');
 		}
 	} else {
@@ -47,8 +47,13 @@
 	?>
 	<div class="main_content">
 		<h4>
+			<select name="filter" id="filter">
+				<option value="">--Filter By--</option>
+				<option value="1">Last Week</option>
+				<option value="2">Last Month</option>
+			</select>
 			<select name="sort" id="sort">
-				<option value="">--Sort By--</option>
+				<option value="">-- Sort By --</option>
 				<option value="ride_date">Date</option>
 				<option value="total_fare">Fare</option>
 				<option value="total_distance">Distance</option>

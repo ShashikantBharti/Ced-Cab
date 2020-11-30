@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-	
     $('#sort').on('change',function(){
         let field = $(this).val();
         let status = $('#status').val();
@@ -14,11 +13,13 @@ $(document).ready(function(){
         });
     });
  
-    // sort user
+    // Sort User. 
     $('#sort_user').on('change',function(){
+
         let field = $(this).val();
         let is_block = $('#is_block').val();
         data = {field:field, is_block:is_block, table: 2}
+
         $.ajax({
             url: "sort_data.php",
             method: "POST",
@@ -56,11 +57,13 @@ $(document).ready(function(){
         });
     });
 
-    // sort location
+    // Sort Location.
     $('#sort_location').on('change',function(){
+
         let field = $(this).val();
         let is_available = $('#is_available').val();
         data = {field: field, is_available:is_available, table:3}
+
         $.ajax({
             url: "sort_data.php",
             method: "POST",
@@ -98,23 +101,25 @@ $(document).ready(function(){
         
     });
 
-    // Filter Data
+    // Filter Data.
     $('#filter').on('change',function(){
         let duration = $(this).val();
         let status = $('#status').val();
         data = {duration: duration, status:status, table: 4}
+        
         $.ajax({
             url: "sort_data.php",
             method: "POST",
             data: data,
             dataType: "json",
             success: showData,
-        })
+        });
+
     });
 
-
+    // Function to show data in ride table.
     function showData(res) {
-         let html = '';
+        let html = '';
         let i = 0;
         $.each(res[0], function(index, item) {
             html += `<tr>`;
@@ -155,6 +160,6 @@ $(document).ready(function(){
             i++;
         });
         $('#showData').html(html);
+        console.log(res);
     }
-
 });

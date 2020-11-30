@@ -46,6 +46,11 @@
 	?>
 	<div class="main_content">
 		<h4>
+			<select name="filter" id="filter">
+				<option value="">--Filter By--</option>
+				<option value="1">Last Week</option>
+				<option value="2">Last Month</option>
+			</select>
 			<select name="sort" id="sort">
 				<option value="">--Sort By--</option>
 				<option value="ride_date">Date</option>

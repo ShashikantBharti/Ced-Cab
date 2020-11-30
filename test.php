@@ -1,13 +1,19 @@
 <?php
 require 'functions.inc.php';
-$date1 = date('d-m-Y h:i:s');
-$date2 = date('d-m-Y h:i:s', strtotime('-7 days'));
 
-$query = new Query;
-$result = $query -> getData('tbl_ride','','','ride_date','DESC',[$date1,$date2]);
+$conn = new mysqli('localhost','root','','citycab');
+
+$sql = "SELECT `tbl_ride`.*,`tbl_user`.`name` FROM tbl_ride JOIN tbl_user ON `tbl_ride`.`user_id` = `tbl_user`.`user_id`";
+
+$query = $conn -> query($sql);
+
+$data = array();
+
+while($result = $query->fetch_assoc()){
+	$data[] = $result;
+}
 
 echo '<pre>';
-print_r($result);
-
+print_r($data);
 
 ?>

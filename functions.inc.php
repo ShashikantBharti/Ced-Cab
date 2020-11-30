@@ -16,7 +16,7 @@ class Database {
 		$conn = new mysqli($this->host, $this->user, $this->password, $this->dbname);
 		return $conn;
 	}
-}
+} 
 
 class Query extends Database {
 	public function getData($table,$fields='',$conditions='',$order_by_field='',$order_by_type='',$between='') {
@@ -39,13 +39,16 @@ class Query extends Database {
 			}
 		}
 		if($between != ''){
-			$sql .= " WHERE `ride_date`<='$between[0]' AND `ride_date`>='$between[1]'";
-			
+			if($conditions != '') {
+				$sql .= " AND `ride_date`<='$between[0]' AND `ride_date`>='$between[1]'";
+			} else {
+				$sql .= " WHERE `ride_date`<='$between[0]' AND `ride_date`>='$between[1]'";
+			}
 		}
 		if($order_by_field != '') {
 			$sql .= " ORDER BY `$order_by_field` $order_by_type";
 		}
-		
+
 		$result = $this->connect()->query($sql);
 		if ($result -> num_rows > 0) {
 			$arr = array();
@@ -56,7 +59,6 @@ class Query extends Database {
 		} else {
 			return 0;
 		}
-
 	}
 
 	public function insertData($table, $arr=''){
@@ -110,7 +112,7 @@ class Query extends Database {
 			foreach($condition as $key => $value) {
 				$sql .= " WHERE `$key`='$value'";
 			}
-
+			
 			$result = $this->connect()->query($sql); 
 			return $result;
 		}

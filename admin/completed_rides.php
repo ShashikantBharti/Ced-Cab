@@ -30,7 +30,7 @@
 		}
 
 	} 	
-?>
+?> 
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="main_header">
@@ -41,7 +41,7 @@
 				<option value="2">Last Month</option>
 			</select>
 			<select name="sort" id="sort">
-				<option value="">--Sort By--</option>
+				<option value="">-- Sort By --</option>
 				<option value="ride_date">Date</option>
 				<option value="total_fare">Fare</option>
 				<option value="total_distance">Distance</option>
@@ -98,16 +98,16 @@
 							
 							<?php
 								if($ride['status'] == -1){
-									echo '<a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
-									echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a>';
+									echo ' <a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a> ';
+									echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a> ';
 								} else if($ride['status'] == 0){
-									echo '<a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
-									echo '<a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>';
+									echo ' <a href="?action=0&id='.$ride['ride_id'].'" title="Approve"><i class="inactive fas fa-toggle-off"></i> </a>';
+									echo ' <a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a> ';
 								} else if($ride['status'] == 1) {
-									echo '<a href="?action=2&id='.$ride['ride_id'].'" title="Complete"><i class="completed fas fa-thumbs-up"></i></a> ';
-									echo ' <a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a>';
+									echo ' <a href="?action=2&id='.$ride['ride_id'].'" title="Complete"><i class="completed fas fa-thumbs-up"></i></a> ';
+									echo ' <a href="?action=-1&id='.$ride['ride_id'].'" title="Cancel"><i class="cancelled fas fa-thumbs-down"></i></a> ';
 								} else {
-									echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a>';
+									echo ' <a href="?action=delete&id='.$ride['user_id'].'" title="Delete"><i class="fas fa-trash-alt delete"></i></a> ';
 								}
 							?>
 						</td>
