@@ -22,7 +22,7 @@
 				</label>
 				<label for="mobile">
 					<span>Mobile</span>
-					<input type="text" name="mobile" id="mobile" placeholder="Enter mobile number...">
+					<input type="text" name="mobile" id="luggage" placeholder="Enter mobile number...">
 					<p id="error-message" class="error"></p>
 				</label>
 				<label for="password">

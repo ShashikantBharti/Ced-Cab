@@ -28,7 +28,7 @@
 			</label>
 			<label for="cab_type">
 				<span>Mobile</span>
-				<input type="text" name="mobile" value="<?php echo $user[0]['mobile']; ?>" placeholder="Enter your mobile...">
+				<input type="text" name="mobile" id="luggage" value="<?php echo $user[0]['mobile']; ?>" placeholder="Enter your mobile...">
 			</label>
 			
 			<button type="submit" name="submit" value="update_info" class="btn btn-light btn-block">Save Updates</button>

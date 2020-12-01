@@ -58,7 +58,12 @@
 					<i class="fas fa-taxi"></i>	
 					<span>
 						<?php 
-							echo count($query->getData('tbl_ride'));
+							$result = $query -> getData('tbl_ride');
+							if($result) {
+								echo count($result);
+							} else {
+								echo $result;
+							}
 						 ?>
 					 </span>
 					</span>
@@ -87,11 +92,16 @@
 					<span>
 						<?php 
 							$result = $query->getData('tbl_ride',["total_distance"]);
-							$sum = 0;
-							foreach($result as $r){
-								$sum += $r['total_distance'];
+							if($result) {
+								$sum = 0;
+								foreach($result as $r){
+									$sum += $r['total_distance'];
+								}
+								echo $sum;
+							} else {
+								echo $result;
 							}
-							echo $sum;
+							
 						 ?>
 					</span>
 				</div>
@@ -103,11 +113,16 @@
 					<span>
 						<?php 
 							$result = $query->getData('tbl_ride',["total_fare"]);
-							$sum = 0;
-							foreach($result as $r){
-								$sum += $r['total_fare'];
+							if($result) {
+								$sum = 0;
+								foreach($result as $r){
+									$sum += $r['total_fare'];
+								}
+								echo $sum;
+							} else {
+								echo $result;
 							}
-							echo $sum;
+							
 						 ?>
 					</span>
 				</div>

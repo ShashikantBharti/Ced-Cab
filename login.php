@@ -32,7 +32,7 @@
 				</label>
 				<label for="remme">
 					<input type="checkbox" name="remme" value="1" id="remme">
-					Remeber Me ?
+					Remember Me ?
 					<p>New User? <a href="register.php">Register</a></p>
 				</label>
 

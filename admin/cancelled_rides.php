@@ -34,7 +34,7 @@
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="main_header">
-			<h4>Total Rides</h4>
+			<h4>Cancelled Rides</h4>
 			<select name="filter" id="filter">
 				<option value="">-- Filter By --</option>
 				<option value="1">Last Week</option>

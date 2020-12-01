@@ -6,6 +6,18 @@
 ?>
 		<!-- Showcase -->
 		<div id="showcase">
+			<h1>
+			<?php
+				if(isset($_SESSION['USER_ID'])) {
+					if(!$_SESSION['IS_ADMIN']) {
+						$user_id = $_SESSION['USER_ID'];
+						$query = new Query;
+						$user1 = $query -> getData('tbl_user',["name"],["user_id"=>$user_id]);
+						echo '<h1>Welcome '.$user1[0]['name'].'</h1><br>';
+					}
+				}
+			?>
+			</h1>
 			<h1>Book a City Taxi to Your Destination in Town</h1>
 			<p>Choose from a range of categories and price</p>
 			<a href="#book-now" class="btn btn-dark">Book Now</a>

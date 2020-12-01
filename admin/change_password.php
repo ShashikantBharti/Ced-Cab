@@ -14,7 +14,7 @@ if(isset($_REQUEST['submit'])) {
 		$query = new Query;
 		$user_id = $_SESSION['USER_ID'];
 		$result = $query -> getData('tbl_user','',["user_id"=>$user_id]);
-		if($result[0]['password'] == md5($old_password)) {
+		if($result[0]['password'] != md5($old_password)) {
 			$msg = "Old password not matched!!";
 			$result = 0;
 		} else {
