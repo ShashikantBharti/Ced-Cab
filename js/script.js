@@ -1,10 +1,11 @@
 $(document).ready(function() {
 
     // Validation in luggage to allow only numbers
-    $('#luggage').on('keyup', function(e) {
-        if (!($(this).val().charCodeAt(0) >= 48 && $(this).val().charCodeAt(0) <= 57) && e.keyCode !== 8) {
+    $('#luggage').on('blur', function(e) {
+        let luggage = $(this).val();
+        if(isNaN(luggage)){
+            alert('Only Numbers Allowed!');
             $(this).val('');
-            alert('Only Numbers Allowed !!');
         }
     });
  
@@ -82,6 +83,7 @@ $(document).ready(function() {
             html += `<td>${item.pickup_loc}</td>`;
             html += `<td>${item.drop_loc}</td>`;
             html += `<td>${item.total_distance} KM</td>`;
+            html += `<td>${item.luggage} KG</td>`;
             html += `<td>Rs. ${item.total_fare}/-</td>`;
             html += `<td>${item.ride_date}</td>`;
             html += `<td>`;

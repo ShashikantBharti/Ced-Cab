@@ -44,6 +44,10 @@ a {
 .btn-block{
 	width: 100%;
 }
+.btn-primary {
+	background: orange;
+	color: #000;
+}
 .error {
 	margin: 10px 0;
 	color: red;
@@ -51,6 +55,25 @@ a {
 .success {
 	margin: 10px 0;
 	color: green;
+}
+
+#calculateFare {
+	width: 100%;
+	background: orange;
+	border-radius: 30px;
+}
+#calculateFare a{
+	display:  block;
+	padding: 10px 0;
+	margin: 20px 0;
+}
+#bookCab {
+	width:  100%;
+	background: #333;
+	border-radius: 30px;
+}
+#bookCab a{
+	display: block;
 }
 
 .active {

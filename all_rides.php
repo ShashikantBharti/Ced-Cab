@@ -1,5 +1,7 @@
 <?php
 	require 'header.inc.php';
+
+	// Check if User is Login
 	if(isset($_SESSION['IS_ADMIN'])) {
 		if($_SESSION['IS_ADMIN']) { 
 			header('location:index.php');
@@ -7,7 +9,10 @@
 	} else {
 		header('location:index.php');
 	}
+
+	// To activate particular tab in sidebar
 	$url = basename($_SERVER['REQUEST_URI']);
+
 	$query = new Query;
 	$user_id = $_SESSION['USER_ID'];
 	$locations = $query -> getData('tbl_location');
@@ -43,6 +48,7 @@
 
 <main>
 	<?php  
+	
 		require 'sidebar.inc.php';
 	?>
 	<div class="main_content">
@@ -70,6 +76,7 @@
 						<th>Pickup Location</th>
 						<th>Drop Location</th>
 						<th>Total Distance</th>
+						<th>Luggage</th>
 						<th>Total Fare</th>
 						<th>Date Time</th>
 						<th>Status</th>
@@ -88,6 +95,7 @@
 						<td><?php echo $ride['pickup_loc']; ?></td>
 						<td><?php echo $ride['drop_loc']; ?></td>
 						<td><?php echo $ride['total_distance']; ?> KM</td>
+						<td><?php echo $ride['luggage']; ?> KG</td>
 						<td>Rs. <?php echo $ride['total_fare']; ?>/-</td>
 						<td><?php echo $ride['ride_date']; ?></td>
 						<td>

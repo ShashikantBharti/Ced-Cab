@@ -70,6 +70,7 @@
 					<th>Pickup Location</th>
 					<th>Drop Location</th>
 					<th>Total Distance</th>
+					<th>Luggage</th>
 					<th>Total Fare</th>
 					<th>Date Time</th>
 					<th>Status</th>
@@ -88,6 +89,7 @@
 					<td><?php echo $ride['pickup_loc']; ?></td>
 					<td><?php echo $ride['drop_loc']; ?></td>
 					<td><?php echo $ride['total_distance']; ?> KM</td>
+					<td><?php echo $ride['luggage']; ?> KM</td>
 					<td>Rs. <?php echo $ride['total_fare']; ?>/-</td>
 					<td><?php echo $ride['ride_date']; ?></td>
 					<td>

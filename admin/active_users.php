@@ -48,7 +48,8 @@
 				<tbody id="showData">
 					<?php 
 					$sr = 1;
-					foreach($result as $user) {
+					if($result != 0){
+						foreach($result as $user) {
 
 					?>
 					<tr>
@@ -80,7 +81,10 @@
 
 					</tr>
 					<?php
-						$sr++;
+							$sr++;
+							}
+						} else {
+							echo "No Record Found!";
 						}
 					?>
 						

@@ -19,13 +19,18 @@ class Database {
 } 
 
 class Query extends Database {
+	// Function to fetch Desired record from desired table with desired condition.
 	public function getData($table,$fields='',$conditions='',$order_by_field='',$order_by_type='',$between='') {
+		// Query to select all data.
 		$sql = "SELECT * FROM `$table`";
-		if($fields != '') {
+		// Select particular field.
+		if($fields != '') { 
 			$fields = "`".implode('`,`',$fields)."`";
 			$sql = "SELECT $fields FROM `$table`";
 		}
-		if($conditions != '') {
+
+		// Add Conditions
+		if($conditions != '') { 
 			$sql .= " WHERE ";
 			$c = count($conditions);
 			$i = 1;
@@ -38,6 +43,8 @@ class Query extends Database {
 				$i++;
 			}
 		}
+
+		// Condition between.
 		if($between != ''){
 			if($conditions != '') {
 				$sql .= " AND `ride_date`<='$between[0]' AND `ride_date`>='$between[1]'";
@@ -45,18 +52,24 @@ class Query extends Database {
 				$sql .= " WHERE `ride_date`<='$between[0]' AND `ride_date`>='$between[1]'";
 			}
 		}
+		
+		// Order Data in DESC or ASC.
 		if($order_by_field != '') {
 			$sql .= " ORDER BY `$order_by_field` $order_by_type";
 		}
 
+		// Execute Query.
 		$result = $this->connect()->query($sql);
 		if ($result -> num_rows > 0) {
 			$arr = array();
+			// Hold all record in an array.
 			while($row = $result->fetch_assoc()) {
 				$arr[] = $row;
 			}
+			// Return all records.
 			return $arr;
 		} else {
+			// if no record found return 0.
 			return 0;
 		}
 	}

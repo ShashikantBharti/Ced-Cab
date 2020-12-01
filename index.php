@@ -70,20 +70,20 @@
 							<span>Luggage</span>
 							<input type="text" name="luggage" id="luggage" placeholder="Enter Weight in KG">
 						</label>
-
+						<div id="calculateFare"><a href="javasript:void(0)" id="calFare">Calculate Fare</a></div>
 						<?php 
 							if(isset($_SESSION['IS_ADMIN'])) {
 								if($_SESSION['IS_ADMIN']) {
-									echo '<a href="login.php" class="btn btn-dark btn-block">Login</a>';
+									echo '<div id="bookCab"><a href="login.php">Book Cab</a></div>';
 								} else {
 									echo '<input type="text" value="'.$_SESSION['USER_ID'].'" name="user_id" hidden>';
 									echo '<button type="submit" name="submit" value="Book_Now" class="btn btn-dark btn-block">Book Cab</button>';
 								}
 							} else {
-								echo '<a href="login.php" class="btn btn-dark btn-block">Login</a>';
+								echo '<div id="bookCab"><a href="login.php" class="btn btn-dark btn-block">Book Cab</a></div>';
 							}
 						?>
-						<p style="margin-top:20px"><a href="javasript:void(0)" id="calFare">Calculate Fare</a></p>
+						
 						<p class="<?php if($result){ echo 'success'; } else{ echo 'error'; } ?>"><?php echo $msg; ?></p>
 					</form>
 				</div>

@@ -14,13 +14,16 @@
 	<!-- Main Content -->
 	<div class="main_content">
 		<div class="tiles">
+			<a href="all_users.php">
 			<div class="box box-1">
 				<div class="box_top">
 					<i class="fas fa-users"></i>	
 					<span><?php echo count($result); ?></span>
 				</div>
-				<h4><a href="all_users.php">Total Users</a></h4>
+				<h4>Total Users</h4>
 			</div>
+			</a>
+			<a href="active_users.php">
 			<div class="box box-2">
 				<div class="box_top">
 					<i class="fas fa-user-friends"></i>
@@ -35,8 +38,10 @@
 						 ?>
 					 </span>					
 				</div>
-				<h4> <a href="active_users.php">Total Active Users</a></h4>
+				<h4> Total Active Users</h4>
 			</div>
+			</a>
+			<a href="blocked_users.php">
 			<div class="box box-3">
 				<div class="box_top">
 					<i class="fas fa-users-slash"></i> 	
@@ -51,8 +56,10 @@
 						 ?>
 					 </span>
 				</div>
-				<h4><a href="blocked_users.php">Total Blocked users</a></h4>
+				<h4>Total Blocked users</h4>
 			</div>
+			</a>
+			<a href="total_rides.php">
 			<div class="box box-4">
 				<div class="box_top">
 					<i class="fas fa-taxi"></i>	
@@ -68,8 +75,10 @@
 					 </span>
 					</span>
 				</div>
-				<h4><a href="total_rides.php">Total Rides</a></h4>
+				<h4>Total Rides</h4>
 			</div>
+			</a>
+			<a href="new_requests.php">
 			<div class="box box-5">
 				<div class="box_top">
 					<i class="fas fa-comment-dots"></i>	
@@ -84,8 +93,9 @@
 						 ?>
 					</span>
 				</div>
-				<h4><a href="new_requests.php">Total New Ride Requests</a></h4>
+				<h4>Total New Ride Requests</h4>
 			</div>
+			</a>
 			<div class="box box-6">
 				<div class="box_top">
 					<i class="fas fa-bacon"></i>	

@@ -55,8 +55,11 @@
 				<span>Luggage</span>
 				<input type="text" name="luggage" id="luggage" placeholder="Enter Weight in KG">
 			</label>
+
 			<input type="text" value="<?php echo $_SESSION['USER_ID']; ?>" name="user_id" hidden>
+			<div id="calculateFare"><a href="javasript:void(0)" id="calFare">Calculate Fare</a></div>
 			<button type="submit" name="submit" value="Book_Now" class="btn btn-light btn-block">Book Cab</button>
+			
 			<p class="<?php if($result){ echo 'success'; } else{ echo 'error'; } ?>"><?php echo $msg; ?></p>
 		</form>
 	</div>
